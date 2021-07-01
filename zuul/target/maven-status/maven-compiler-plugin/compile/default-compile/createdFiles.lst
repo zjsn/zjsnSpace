@@ -1,0 +1,4 @@
+com/zjsn/zuul/config/AccessFilter.class
+com/zjsn/zuul/config/DocumentationConfig.class
+com/zjsn/zuul/config/ErrorFilter.class
+com/zjsn/zuul/ZuulApplication.class

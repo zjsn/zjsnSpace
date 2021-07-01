@@ -1,0 +1,59 @@
+module:
+  registry: alibaba-nacos-discovery-server
+  userCenter: userCenter
+  authorityCenter: authorityCenter
+
+beta:
+  namespace: 1225f02b-e9bd-493f-8140-fb4232562a00
+spring:
+  application:
+    name: apiGateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 120.79.187.144:8846
+    sentinel:
+      transport:
+        dashboard: localhost:8858
+  data:
+    #mongodb
+    mongodb:
+      host: 120.79.187.144
+      port: 27017
+      database: user
+      username: root
+      password: 123456
+  redis:
+    host: 120.79.187.144
+    port: 6379
+#feign 是否使用哨兵
+feign:
+  sentinel:
+    enabled: true
+
+swagger:
+  base-package: com.zjsn
+  version: 1.0
+
+# 路由配置数组是有序的
+# 配置的时候可以适当排列先后循序
+zuul:
+  routes:
+    auth:
+      path: /auth/**
+      serviceId: authorityCenter
+      # 会话保持
+      custom-sensitive-headers: true
+    user:
+      path: /user/**
+      serviceId: userCenter
+    registry:
+      path: /registry/**
+      serviceId: alibaba-nacos-discovery-server
+  # 重定向问题
+  add-host-header: true
+    # 忽略表达式参数配置
+  ignored-patterns:
+    - /**/hello
+  # 来忽略所有的默认路由
+  ignored-services: /**

@@ -1,0 +1,8 @@
+/Users/tangjiaren/Downloads/17817454368/zjsnSpace/user/src/main/java/com/zjsn/user/controller/ApiController.java
+/Users/tangjiaren/Downloads/17817454368/zjsnSpace/user/src/main/java/com/zjsn/user/feign/feignHelper/RegistryHelper.java
+/Users/tangjiaren/Downloads/17817454368/zjsnSpace/user/src/main/java/com/zjsn/user/UserApplication.java
+/Users/tangjiaren/Downloads/17817454368/zjsnSpace/user/src/main/java/com/zjsn/user/service/UserMongoService.java
+/Users/tangjiaren/Downloads/17817454368/zjsnSpace/user/src/main/java/com/zjsn/user/feign/RegistryClient.java
+/Users/tangjiaren/Downloads/17817454368/zjsnSpace/user/src/main/java/com/zjsn/user/service/impl/UserMongoServiceImpl.java
+/Users/tangjiaren/Downloads/17817454368/zjsnSpace/user/src/main/java/com/zjsn/user/service/UserRepository.java
+/Users/tangjiaren/Downloads/17817454368/zjsnSpace/user/src/main/java/com/zjsn/user/config/SentinelResourceAspectConfig.java

@@ -1,0 +1,5 @@
+com/zjsn/authority/controller/service/AuthorityService.class
+com/zjsn/authority/config/SentinelResourceAspectConfig.class
+com/zjsn/authority/controller/service/impl/AuthorityServiceImpl.class
+com/zjsn/authority/AuthorityApplication.class
+com/zjsn/authority/controller/ApiController.class

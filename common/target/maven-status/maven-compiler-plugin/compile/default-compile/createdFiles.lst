@@ -1,0 +1,5 @@
+META-INF/spring-configuration-metadata.json
+com/zjsn/util/R.class
+com/zjsn/domain/user/UserMongoEntity.class
+com/zjsn/domain/properties/module.class
+com/zjsn/Application.class

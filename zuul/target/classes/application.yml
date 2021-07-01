@@ -1,0 +1,6 @@
+server:
+  port: 8849
+
+spring:
+  profiles:
+    active: beta

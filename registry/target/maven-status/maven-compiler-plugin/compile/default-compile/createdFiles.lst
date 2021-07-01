@@ -1,0 +1,4 @@
+com/zjsn/registry/controller/ApiController.class
+com/zjsn/registry/feign/UserClient.class
+com/zjsn/registry/ApplyApplication.class
+com/zjsn/registry/feign/feignHelper/UserHelper.class

@@ -1,0 +1,17 @@
+module:
+  registry: alibaba-nacos-discovery-server
+
+spring:
+  application:
+    name: alibaba-nacos-discovery-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr:  120.79.187.144:8846
+  data:
+    mongodb:
+      host: 120.79.187.144
+      port: 27017
+      database: user
+      username: root
+      password: 123456

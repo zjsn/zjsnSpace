@@ -1,0 +1,6 @@
+server:
+  port: 8847
+
+spring:
+  profiles:
+    active: beta
