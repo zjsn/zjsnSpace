@@ -1,8 +1,0 @@
-com/zjsn/user/config/SentinelResourceAspectConfig.class
-com/zjsn/user/feign/RegistryClient.class
-com/zjsn/user/service/UserRepository.class
-com/zjsn/user/controller/ApiController.class
-com/zjsn/user/service/impl/UserMongoServiceImpl.class
-com/zjsn/user/service/UserMongoService.class
-com/zjsn/user/feign/feignHelper/RegistryHelper.class
-com/zjsn/user/UserApplication.class
