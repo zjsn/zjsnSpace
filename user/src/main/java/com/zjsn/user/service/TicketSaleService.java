@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface TicketSaleService {
 
-    void sale();
+    void sale() throws InterruptedException;
 }
