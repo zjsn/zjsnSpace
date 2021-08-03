@@ -2,10 +2,10 @@ package com.zjsn.user.controller;
 
 import com.zjsn.domain.user.UserMongoEntity;
 import com.zjsn.user.feign.feignHelper.RegistryHelper;
+import com.zjsn.user.service.TicketSaleService;
 import com.zjsn.user.service.UserMongoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +31,8 @@ public class ApiController {
     private RegistryHelper registryHelper;
     @Autowired
     private UserMongoService userMongoService;
+    @Autowired
+    private TicketSaleService ticketSaleService;
 
     @ApiOperation(value = "说你好")
     @ApiImplicitParam(name = "name", value = "名称", dataTypeClass = String.class)
@@ -59,5 +61,11 @@ public class ApiController {
     public String findProjectName() {
         System.out.println(newTitle);
         return this.title;
+    }
+
+    @ApiOperation(value = "测试售卖门票")
+    @RequestMapping(value = "/testSaleTicket", method = RequestMethod.GET)
+    public void testSaleTicket() throws InterruptedException {
+        ticketSaleService.sale();
     }
 }
