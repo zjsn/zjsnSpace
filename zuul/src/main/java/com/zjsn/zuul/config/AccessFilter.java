@@ -70,7 +70,7 @@ public class AccessFilter extends ZuulFilter {
         // todo accessToken 可以匹配对应的数据库的数据
         if (StrUtil.isBlank(accessToken)) {
             log.warn("access token is empty");
-            R r = new R(HttpStatus.UNAUTHORIZED.value(),HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            R r = R.build(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
             String body = JSONObject.toJSONString(r, SerializerFeature.WriteMapNullValue, SerializerFeature.QuoteFieldNames);
             currentContext.setResponseBody(body);
             return null;

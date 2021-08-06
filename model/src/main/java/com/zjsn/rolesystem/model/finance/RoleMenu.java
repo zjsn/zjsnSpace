@@ -1,4 +1,4 @@
-package com.zjsn.person.model;
+package com.zjsn.rolesystem.model.finance;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -13,29 +13,26 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ * 角色菜单关联表
  * </p>
  *
  * @author yingluo
- * @since 2021-08-02
+ * @since 2021-08-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("person")
-@ApiModel(value="Person对象", description="")
-public class Person implements Serializable {
+@TableName("t_role_menu")
+@ApiModel(value="RoleMenu对象", description="角色菜单关联表")
+public class RoleMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "role_id", type = IdType.UUID)
+    private Long roleId;
 
-    @TableField("nick_name")
-    private String nickName;
-
-    @TableField("phone")
-    private String phone;
+    @TableField("menu_id")
+    private Long menuId;
 
 
 }

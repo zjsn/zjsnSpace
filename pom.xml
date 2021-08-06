@@ -190,6 +190,7 @@
         <module>authority</module>
         <module>zuul</module>
         <module>service</module>
+        <module>model</module>
     </modules>
 
     <build>
