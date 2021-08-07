@@ -1,6 +1,0 @@
-server:
-  port: 8850
-
-spring:
-  profiles:
-    active: beta

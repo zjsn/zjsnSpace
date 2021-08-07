@@ -1,0 +1,57 @@
+module:
+  registry: alibaba-nacos-discovery-server
+
+beta:
+  namespace: 1225f02b-e9bd-493f-8140-fb4232562a00
+spring:
+  application:
+    name: userCenter
+  cloud:
+    nacos:
+      discovery:
+        server-addr:  120.79.187.144:8846
+    sentinel:
+      transport:
+        dashboard:  localhost:8858
+      datasource:
+        flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            namespace: ${beta.namespace}
+            dataId: ${spring.application.name}-flow-rules
+            groupId: DEV_GROUP
+            data-type: json
+            rule-type: flow
+        degrade:
+          nacos:
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            namespace: ${beta.namespace}
+            dataId: ${spring.application.name}-degrade-rules
+            groupId: DEV_GROUP
+            data-type: json
+            rule-type: degrade
+  data:
+    #mongodb
+    mongodb:
+      host: 120.79.187.144
+      port: 27017
+      database: user
+      username: root
+      password: 123456
+  datasource:
+    #mysql
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://120.79.187.144:3306/rolesystem?characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+swagger:
+  base-package: com.zjsn.rolesystem.user.controller
+  version: 1.0
+  title: 用户中心模块文档
+  description: 用户中心相关的api文档
+  contact:
+    name: zjsn
+    email: zjsn233@gmail.com
+#mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:com/zjsn/rolesystem/user/mapper/xml/*.xml

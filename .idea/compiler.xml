@@ -8,11 +8,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="registry" />
-        <module name="zuul" />
         <module name="common" />
-        <module name="user" />
-        <module name="service" />
         <module name="authority" />
+        <module name="model" />
+        <module name="service_rs_user" />
+        <module name="zuul" />
+        <module name="user" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -23,8 +24,10 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="authority" options="-parameters" />
       <module name="common" options="-parameters" />
+      <module name="model" options="-parameters" />
       <module name="registry" options="-parameters" />
       <module name="service" options="-parameters" />
+      <module name="service_rs_user" options="-parameters" />
       <module name="user" options="-parameters" />
       <module name="user (1)" options="-parameters" />
       <module name="zjsnSpace" options="-parameters" />
