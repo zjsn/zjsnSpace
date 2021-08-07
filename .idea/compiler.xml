@@ -11,6 +11,7 @@
         <module name="zuul" />
         <module name="common" />
         <module name="user" />
+        <module name="service" />
         <module name="authority" />
       </profile>
     </annotationProcessing>
@@ -23,6 +24,7 @@
       <module name="authority" options="-parameters" />
       <module name="common" options="-parameters" />
       <module name="registry" options="-parameters" />
+      <module name="service" options="-parameters" />
       <module name="user" options="-parameters" />
       <module name="user (1)" options="-parameters" />
       <module name="zjsnSpace" options="-parameters" />
