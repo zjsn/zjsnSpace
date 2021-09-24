@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel("mongoUserEntity")
-public class UserMongoEntity implements Serializable {
+public class UserMongoEntity implements Serializable, Cloneable {
     @ApiModelProperty("id")
     private Long id;
     @ApiModelProperty("姓名")
@@ -21,4 +21,9 @@ public class UserMongoEntity implements Serializable {
     private Integer age;
     @ApiModelProperty("电话")
     private Integer phone;
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
