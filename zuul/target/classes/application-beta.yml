@@ -14,7 +14,7 @@ spring:
         server-addr: 120.79.187.144:8846
     sentinel:
       transport:
-        dashboard: localhost:8858
+        dashboard: 119.91.75.103:8858
   data:
     #mongodb
     mongodb:
