@@ -86,11 +86,11 @@ public class GenericMethodUtil {
         return sourceList;
     }
 
-    public static void main(String[] args) {
-        int[] arr = {1,5,7,3,4,2,6,9,8,5};
-        int[] ints = fastPP(arr, 0, arr.length-1);
-        System.out.println(Arrays.toString(ints));
-    }
+//    public static void main(String[] args) {
+//        int[] arr = {1,5,7,3,4,2,6,9,8,5};
+//        int[] ints = fastPP(arr, 0, arr.length-1);
+//        System.out.println(Arrays.toString(ints));
+//    }
 
     /**
      * 盒子泛型类
