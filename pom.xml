@@ -184,7 +184,6 @@
     </dependencyManagement>
 
     <modules>
-        <module>registry</module>
         <module>common</module>
         <module>user</module>
         <module>authority</module>

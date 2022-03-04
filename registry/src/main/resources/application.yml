@@ -1,6 +1,0 @@
-server:
-  port: 8846
-
-spring:
-  profiles:
-    active: beta
