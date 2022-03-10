@@ -1,5 +1,4 @@
 module:
-  registry: alibaba-nacos-discovery-server
   userCenter: userCenter
   authorityCenter: authorityCenter
 
@@ -11,7 +10,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 120.79.187.144:8846
+        server-addr: 119.91.75.103:8846
     sentinel:
       transport:
         dashboard: 119.91.75.103:8858
@@ -47,9 +46,6 @@ zuul:
     user:
       path: /user/**
       serviceId: userCenter
-    registry:
-      path: /registry/**
-      serviceId: alibaba-nacos-discovery-server
   # 重定向问题
   add-host-header: true
     # 忽略表达式参数配置

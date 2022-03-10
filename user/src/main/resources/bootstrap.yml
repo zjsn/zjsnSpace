@@ -2,7 +2,7 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: 120.79.187.144:8846
+        server-addr: 119.91.75.103:8846
         namespace: 1225f02b-e9bd-493f-8140-fb4232562a00
         group: DEV_GROUP
         file-extension: yaml
