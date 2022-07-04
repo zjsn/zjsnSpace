@@ -1,6 +1,7 @@
 package com.zjsn.user.controller;
 
 import com.zjsn.domain.user.UserMongoEntity;
+import com.zjsn.user.demo.signDemo.*;
 import com.zjsn.user.feign.feignHelper.RegistryHelper;
 import com.zjsn.user.service.TicketSaleService;
 import com.zjsn.user.service.UserMongoService;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * @Author: tangjiaren
@@ -33,6 +36,14 @@ public class ApiController {
     private UserMongoService userMongoService;
     @Autowired
     private TicketSaleService ticketSaleService;
+    @Resource
+    GoodsName1 goodsName1;
+    @Resource
+    GoodsName2 goodsName2;
+    @Resource
+    AllQueryGoodsFun allQueryGoodsFun;
+    @Resource
+    Decorator decorator;
 
     @ApiOperation(value = "说你好")
     @ApiImplicitParam(name = "name", value = "名称", dataTypeClass = String.class)
@@ -67,5 +78,28 @@ public class ApiController {
     @RequestMapping(value = "/testSaleTicket", method = RequestMethod.GET)
     public void testSaleTicket() throws InterruptedException {
         ticketSaleService.sale();
+    }
+
+    @ApiOperation(value = "商品查询1")
+    @RequestMapping(value = "/queryGoodsName1", method = RequestMethod.GET)
+    public void queryGoodsName1()  {
+        goodsName1.queryGoodsMethod1();
+    }
+
+    @ApiOperation(value = "商品查询2")
+    @RequestMapping(value = "/queryGoodsName2", method = RequestMethod.GET)
+    public void queryGoodsName2()  {
+        goodsName2.queryGoodsMethod2();
+    }
+    @ApiOperation(value = "商品查询1")
+    @RequestMapping(value = "/queryGoodsName3", method = RequestMethod.GET)
+    public void queryGoodsName3()  {
+        allQueryGoodsFun.startQuery();
+    }
+
+    @ApiOperation(value = "商品查询2")
+    @RequestMapping(value = "/queryGoodsName4", method = RequestMethod.GET)
+    public void queryGoodsName4()  {
+        decorator.queryGoodsMethod1();
     }
 }

@@ -7,12 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="common" />
-        <module name="authority" />
         <module name="model" />
         <module name="service_rs_user" />
         <module name="zuul" />
+        <module name="common" />
         <module name="user" />
+        <module name="authority" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

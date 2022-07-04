@@ -10,4 +10,6 @@ public interface UserService extends IService<User> {
     void createUser(User user);
 
     UserTo show(String username);
+
+    int updateUser(User user);
 }
