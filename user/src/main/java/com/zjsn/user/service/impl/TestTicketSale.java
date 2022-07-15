@@ -1,33 +1,112 @@
 package com.zjsn.user.service.impl;
 
+import com.zjsn.domain.sale.Ticket;
 import com.zjsn.user.Mapper.TicketSaleMapper;
+import com.zjsn.user.demo.juc.TicketSingletonTest;
 import com.zjsn.user.service.TicketSaleService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
 
 @Service
 public class TestTicketSale implements TicketSaleService {
 
     @Autowired
     TicketSaleMapper ticketSaleMapper;
+    private volatile boolean flag = true;
+
+    private List<Ticket> ticketList = new CopyOnWriteArrayList<>();
+
     @Override
-    public void sale() {
-        testThread("aa");
+    public String sale(Integer tickets) throws InterruptedException {
+        // 获取票数
+        CountDownLatch ticketNum = getTicketNum(tickets);
+        testThread("aa", ticketNum);
 
-        testThread("bb");
+        testThread("bb", ticketNum);
 
-        testThread("cc");
+        testThread("cc", ticketNum);
+
+        testThread("dd", ticketNum);
+
+        testThread("ff", ticketNum);
+
+        if (flag) {
+            return "售卖成功";
+        }
+        return "售票完了";
     }
 
-    private void testThread(String threadName) {
-        new Thread(() -> {
-            for (int i = 0; i < 3; i++) {
-                try {
-                    ticketSaleMapper.sale();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+    @Override
+    public String reseatTicket() {
+        TicketSingletonTest.reseat();
+        flag = true;
+        return "票仓重制成功";
+    }
+
+    /**
+     * 获取票数
+     *
+     * @return
+     */
+    private CountDownLatch getTicketNum(Integer tickets) {
+        CountDownLatch countDownLatch = TicketSingletonTest.checkHasTicketCount();
+        if (Objects.isNull(countDownLatch)) {
+            // 获取数据需要时间
+            this.timeConsumingOperation();
+            int ticketNum = 30;
+            if (!Objects.isNull(tickets)) {
+                ticketNum = tickets;
+            }
+            return TicketSingletonTest.getTicketSingletonTest(ticketNum);
+        } else {
+            return countDownLatch;
+        }
+    }
+
+    private  void timeConsumingOperation() {
+        try {
+            Thread.sleep(3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void testThread(String threadName, CountDownLatch ticketNum) {
+        new Thread(new Runnable() {
+            @SneakyThrows
+            @Override
+            public void run() {
+                if (flag) {
+                    for (int i = 0; i < 7; i++) {
+                        try {
+                            Ticket sale = ticketSaleMapper.sale(ticketNum);
+                            if (!Objects.isNull(sale)) {
+                                ticketList.add(sale);
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    ticketNum.await();
+                    if (flag) {
+                        flag = false;
+                        saveInRedis(ticketList);
+                    }
+                } else {
+                    System.out.println("已经售卖完了");
                 }
             }
         }, threadName).start();
+    }
+
+    private void saveInRedis(List<Ticket> ticketList) {
+
+        System.out.println(ticketList);
     }
 }

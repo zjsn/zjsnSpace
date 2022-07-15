@@ -15,21 +15,15 @@
         <module name="authority" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="registry" target="1.8" />
-      <module name="user (1)" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="authority" options="-parameters" />
       <module name="common" options="-parameters" />
       <module name="model" options="-parameters" />
-      <module name="registry" options="-parameters" />
       <module name="service" options="-parameters" />
       <module name="service_rs_user" options="-parameters" />
       <module name="user" options="-parameters" />
-      <module name="user (1)" options="-parameters" />
       <module name="zjsnSpace" options="-parameters" />
       <module name="zuul" options="-parameters" />
     </option>

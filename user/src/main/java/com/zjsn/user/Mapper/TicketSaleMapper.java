@@ -10,32 +10,30 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Repository
 public class TicketSaleMapper {
-    // 资源数
-    private int num = 30;
-    private List<Ticket> ticketList = new CopyOnWriteArrayList<>();
-//    private final ReentrantLock lock = new ReentrantLock(); // 非公平锁 效率高 其他线程可能饿死
-    private final ReentrantLock lock = new ReentrantLock(true); // 公平锁 效率相对底 其他线程 雨露均沾
-    // 获取所有的票数
-    CountDownLatch countDownLatch = new CountDownLatch(this.num);
+    private final ReentrantLock lock = new ReentrantLock(); // 非公平锁 效率高 其他线程可能饿死
+//    private final ReentrantLock lock = new ReentrantLock(true); // 公平锁 效率相对底 其他线程 雨露均沾
     // 售票
-    public void sale() throws InterruptedException {
+    public Ticket sale(CountDownLatch ticketNum) throws InterruptedException {
         lock.lock();
         try {
-            if (num > 0) {
-                Ticket ticket = new Ticket(Thread.currentThread().getId(),Thread.currentThread().getId());
-                System.out.println("销售员"+Thread.currentThread().getName()+"剩余票子"+--num);
-                // 保存起来
-                ticketList.add(ticket);
-                // 票数减一
-                countDownLatch.countDown();
-                if (countDownLatch.getCount() == 0) {
-                    // 票没卖完就会等待
-                    System.out.println("最后一张票卖完,收工.卖票小姐姐叫" + Thread.currentThread().getName());
-                    System.out.println("需要保存的售票记录数组为" + ticketList.toString());
+            if (ticketNum.getCount() > 0) {
+                if ("dd".equals(Thread.currentThread().getName())) {
+                    throw new InterruptedException();
                 }
+                Ticket ticket = new Ticket(Thread.currentThread().getId(), Thread.currentThread().getId());
+                System.out.println("销售员" + Thread.currentThread().getName() + "剩余票子" + ticketNum.getCount());
+                // 票数减一
+                ticketNum.countDown();
+                return ticket;
+            } else {
+                System.out.println("票子卖完啦");
             }
+        } catch (InterruptedException e) {
+            System.out.println("售票小姐姐已经下班了,卖票失败"+ e);
         } finally {
             lock.unlock();
         }
+        return null;
     }
+
 }

@@ -1,6 +1,7 @@
 package com.zjsn.user.demo.jvm;
 
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -86,8 +87,48 @@ public class DynamicProxyTest {
         }
     }
 
-    public static void main(String[] args) {
-        IHello bind = (IHello)new DynamicHello().bind(new sayHelloFun());
-        bind.sayHello("zjsn", 18);
+    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
+//        IHello bind = (IHello)new DynamicHello().bind(new sayHelloFun());
+//        bind.sayHello("zjsn", 18);
+//
+//        Integer n1 = new Integer(47);
+//        Integer n2 = new Integer(47);
+//        System.out.println(n1 == n2);
+//        System.out.println(n1 != n2);
+
+        byte a = 0;
+        byte b = 1;
+        byte c = 1;
+        byte f = 2;
+        byte d = 0;
+        System.out.println(b & c);
+        System.out.println(b | c);
+        System.out.println(a | d);
+        System.out.println(c ^ b);
+        System.out.println(a ^ d);
+        System.out.println(~ a);
+        System.out.println(~ f);
+
+
+//        Integer a = 1;
+//        Integer b = 2;
+//        Integer c = 3;
+//        Integer d = 3;
+//        Integer e = 321;
+//        Integer f = 321;
+//        Long g = 3L;
+//        System.out.println(c == d);
+//        System.out.println(e == f);
+//        System.out.println(c == (a + b));
+//        System.out.println(c.equals(a + b));
+//        System.out.println(g == (a + b));
+//        System.out.println(g.equals(a + b));
+//
+//        String ss = new String("abc");
+//        Field value = ss.getClass().getDeclaredField("value");
+//        value.setAccessible(true);
+//        value.set(ss,"abcd".toCharArray());
+//        System.out.println(ss);
+
     }
 }

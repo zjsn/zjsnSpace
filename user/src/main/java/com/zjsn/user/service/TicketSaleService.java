@@ -7,5 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface TicketSaleService {
 
-    void sale() throws InterruptedException;
+    String sale(Integer tickets) throws InterruptedException;
+
+    String reseatTicket();
 }

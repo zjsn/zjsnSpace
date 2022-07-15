@@ -76,8 +76,14 @@ public class ApiController {
 
     @ApiOperation(value = "测试售卖门票")
     @RequestMapping(value = "/testSaleTicket", method = RequestMethod.GET)
-    public void testSaleTicket() throws InterruptedException {
-        ticketSaleService.sale();
+    public String testSaleTicket(@RequestParam(value = "tickets", required = false) Integer tickets) throws InterruptedException {
+        return ticketSaleService.sale(tickets);
+    }
+
+    @ApiOperation(value = "重制门票")
+    @RequestMapping(value = "/reseatTicket", method = RequestMethod.GET)
+    public String reseatTicket() {
+        return ticketSaleService.reseatTicket();
     }
 
     @ApiOperation(value = "商品查询1")
