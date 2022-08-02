@@ -38,6 +38,20 @@ spring:
       database: user
       username: root
       password: 123456
+  #redis 配置
+  redis:
+    host: 120.79.187.144
+    port: 6379
+    password: 123456
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+      shutdown-timeout: 100ms
+    timeout: 6000
+
 swagger:
   base-package: com.zjsn.user.controller
   version: 1.0

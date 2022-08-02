@@ -88,26 +88,26 @@ public class DynamicProxyTest {
     }
 
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
-//        IHello bind = (IHello)new DynamicHello().bind(new sayHelloFun());
-//        bind.sayHello("zjsn", 18);
+        IHello bind = (IHello)new DynamicHello().bind(new sayHelloFun());
+        bind.sayHello("zjsn", 18);
 //
 //        Integer n1 = new Integer(47);
 //        Integer n2 = new Integer(47);
 //        System.out.println(n1 == n2);
 //        System.out.println(n1 != n2);
 
-        byte a = 0;
-        byte b = 1;
-        byte c = 1;
-        byte f = 2;
-        byte d = 0;
-        System.out.println(b & c);
-        System.out.println(b | c);
-        System.out.println(a | d);
-        System.out.println(c ^ b);
-        System.out.println(a ^ d);
-        System.out.println(~ a);
-        System.out.println(~ f);
+//        byte a = 0;
+//        byte b = 1;
+//        byte c = 1;
+//        byte f = 2;
+//        byte d = 0;
+//        System.out.println(b & c);
+//        System.out.println(b | c);
+//        System.out.println(a | d);
+//        System.out.println(c ^ b);
+//        System.out.println(a ^ d);
+//        System.out.println(~ a);
+//        System.out.println(~ f);
 
 
 //        Integer a = 1;
