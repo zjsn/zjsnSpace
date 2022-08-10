@@ -1,8 +1,8 @@
 package com.zjsn.user.demo.redis;
 
-import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.stereotype.Service;
 
-@CacheConfig(cacheNames = "users")
+@Service
 public interface IRedisDelBigKeys {
 
     void delBigHash(String bigHashKey);

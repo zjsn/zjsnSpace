@@ -84,7 +84,7 @@ public class IRedisPostCodeImpl implements IRedisPostCode{
      *
      * @return
      */
-    private String getCode() {
+    public static String getCode() {
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0 ; i< 6; i++) {

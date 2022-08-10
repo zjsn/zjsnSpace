@@ -1,9 +1,11 @@
 package com.zjsn.user.controller;
 
 import com.zjsn.domain.user.UserMongoEntity;
+import com.zjsn.user.demo.redis.IRedisDelBigKeys;
 import com.zjsn.user.demo.redis.IRedisPostCode;
 import com.zjsn.user.demo.signDemo.*;
 import com.zjsn.user.feign.feignHelper.RegistryHelper;
+import com.zjsn.user.service.IGoodsSecKillService;
 import com.zjsn.user.service.TicketSaleService;
 import com.zjsn.user.service.UserMongoService;
 import com.zjsn.util.R;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+
+import static com.zjsn.user.demo.redis.IRedisPostCodeImpl.getCode;
 
 /**
  * @Author: tangjiaren
@@ -50,6 +54,10 @@ public class ApiController {
     Decorator decorator;
     @Resource
     IRedisPostCode iRedisPostCode;
+    @Resource
+    IGoodsSecKillService iGoodsSecKillService;
+    @Resource
+    IRedisDelBigKeys iRedisDelBigKeys;
 
     @ApiOperation(value = "说你好")
     @ApiImplicitParam(name = "name", value = "名称", dataTypeClass = String.class)
@@ -115,15 +123,35 @@ public class ApiController {
         decorator.queryGoodsMethod1();
     }
 
-    @ApiOperation(value = "商品查询2")
+    @ApiOperation(value = "生成验证码")
     @GetMapping(value = "/createPostCode")
     public R<String> createPostCode(@RequestParam("phone") String phone)  {
         return R.ok(iRedisPostCode.createPostCode(phone));
     }
 
-    @ApiOperation(value = "商品查询2")
+    @ApiOperation(value = "校验验证码")
     @GetMapping(value = "/verifyCode")
     public R<Boolean> verifyCode(@RequestParam("phone") String phone, @RequestParam("code") String code)  {
         return R.ok(iRedisPostCode.verifyCode(phone, code));
+    }
+
+    @ApiOperation(value = "校验验证码")
+    @GetMapping(value = "/doSecKill")
+    public R<Boolean> doSecKill(@RequestParam("prodId") String prodId)  {
+        return R.ok(iGoodsSecKillService.doSecKill(getCode(), prodId));
+    }
+
+    @ApiOperation(value = "补充秒杀商品")
+    @GetMapping(value = "/supplementGoodsCount")
+    public R<Boolean> supplementGoodsCount(@RequestParam("prodId") String prodId, @RequestParam("num") Integer num)  {
+        iGoodsSecKillService.supplementGoodsCount(num, prodId);
+        return R.ok();
+    }
+
+    @ApiOperation(value = "删除key")
+    @GetMapping(value = "/delBigHash")
+    public R<Boolean> delBigHash(@RequestParam("bigKey") String bigKey)  {
+        iRedisDelBigKeys.delBigZSet(bigKey);
+        return R.ok();
     }
 }

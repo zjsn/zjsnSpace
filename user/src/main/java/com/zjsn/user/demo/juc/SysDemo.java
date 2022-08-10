@@ -1,5 +1,7 @@
 package com.zjsn.user.demo.juc;
 
+import java.util.concurrent.locks.LockSupport;
+
 /*同步demo*/
 public class SysDemo {
     public static void main(String[] args) {
@@ -17,7 +19,11 @@ public class SysDemo {
 
     private static void timeConsumingOperation() {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(3000L);
+            new Object().wait(3000L);
+            new Thread().join(3000L);
+            LockSupport.parkNanos(3000L);
+            LockSupport.parkUntil(3000L);
         } catch (Exception e) {
             e.printStackTrace();
         }
