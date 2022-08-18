@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Service
 @Slf4j
 public class IGoodsSecKillServiceImpl implements IGoodsSecKillService {
+    private final ReentrantLock reentrantLock = new ReentrantLock(true);
     @Autowired
     private RedisTemplate redisTemplate;
     // 秒杀商品key前缀
@@ -21,7 +23,17 @@ public class IGoodsSecKillServiceImpl implements IGoodsSecKillService {
     private final String SEC_SUCCESS_USER_PREFIX = "sec:success:user:";
     @Override
     public boolean doSecKill(String uid, String prodId) {
-        // 如果uid、商品id为空的话就不执行了
+        reentrantLock.lock();
+        try {
+            // 如果uid、商品id为空的话就不执行了
+            if (doSecKillFun(uid, prodId)) return false;
+        } finally {
+            reentrantLock.unlock();
+        }
+        return true;
+    }
+
+    private boolean doSecKillFun(String uid, String prodId) {
         if (StrUtil.isNotBlank(uid) && StrUtil.isNotBlank(prodId)) {
             // 库存key
             String kcKey = SEC_GOOD_KEY_PREFIX + prodId;
@@ -34,16 +46,16 @@ public class IGoodsSecKillServiceImpl implements IGoodsSecKillService {
             // 判断商品库存是否为空
             if (Objects.isNull(kcCount)) {
                 log.info("秒杀活动还没开始呢");
-                return false;
+                return true;
             }
             // 判断这个人是否重复参与秒杀活动
             if (checkUserRepeat(userKey, uid)) {
-                log.info("当前用户{}已经参与过了",uid);
-                return false;
+                log.info("当前用户{}已经参与过了", uid);
+                return true;
             }
             if ((Integer)kcCount <= 0) {
                 log.info("秒杀活动已经结束了");
-                return false;
+                return true;
             }
             // redis开启事务
             redisTemplate.multi();
@@ -54,7 +66,7 @@ public class IGoodsSecKillServiceImpl implements IGoodsSecKillService {
 
             redisTemplate.exec();
         }
-        return true;
+        return false;
     }
 
     @Override

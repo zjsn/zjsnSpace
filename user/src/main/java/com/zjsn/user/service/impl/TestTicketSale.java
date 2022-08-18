@@ -1,13 +1,18 @@
 package com.zjsn.user.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.zjsn.domain.sale.Ticket;
 import com.zjsn.user.Mapper.TicketSaleMapper;
 import com.zjsn.user.demo.juc.TicketSingletonTest;
 import com.zjsn.user.service.TicketSaleService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -18,9 +23,14 @@ public class TestTicketSale implements TicketSaleService {
 
     @Autowired
     TicketSaleMapper ticketSaleMapper;
+    @Resource
+    private RedisTemplate redisTemplate;
     private volatile boolean flag = true;
 
     private List<Ticket> ticketList = new CopyOnWriteArrayList<>();
+
+    private final String GoodsId = "111";
+    private final String TICKET_PREFIX = "TestTicket::GoodsId::";
 
     @Override
     public String sale(Integer tickets) throws InterruptedException {
@@ -105,8 +115,19 @@ public class TestTicketSale implements TicketSaleService {
         }, threadName).start();
     }
 
-    private void saveInRedis(List<Ticket> ticketList) {
+    private synchronized void saveInRedis(List<Ticket> ticketList) {
+        if (!CollectionUtils.isEmpty(ticketList)) {
+            System.out.println(ticketList);
+            String nowDateStr = DateUtil.format(new Date(), "yyyy-MM-dd");
+            String prefixKey =  TICKET_PREFIX + GoodsId + "::" + nowDateStr;
+            for (Ticket ticket : ticketList) {
+                try {
+                    redisTemplate.opsForSet().add(prefixKey, ticket);
+                } catch (Exception e) {
 
-        System.out.println(ticketList);
+                }
+            }
+            System.out.println("添加成功");
+        }
     }
 }
