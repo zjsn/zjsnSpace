@@ -40,9 +40,12 @@ spring:
       password: 123456
   #redis 配置
   redis:
-    host: 120.79.187.144
-    port: 6379
-    password: 123456
+#    host: 120.79.187.144
+#    port: 6379
+#    password: 123456
+    sentinel:
+      master: mymaster
+      nodes: 120.79.187.144:26379,120.79.187.144:26380,120.79.187.144:26381 # 哨兵的ip:port列表
     lettuce:
       pool:
         max-active: 8
